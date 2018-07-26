@@ -21,7 +21,7 @@
 		<dependency>
 			<groupId>com.ps</groupId>
 			<artifactId>security-auth-core</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>${security.auth.version}</version>
 		</dependency>
 	</dependencies>
 </project>
