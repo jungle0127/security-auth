@@ -26,20 +26,34 @@ public class UserControllerTest {
 	}
 	@Test
 	public void testWhenQuerySuccess() throws Exception {
-		this.mockMvc.perform(MockMvcRequestBuilders.get("/user")
+		String rsp = this.mockMvc.perform(MockMvcRequestBuilders.get("/user")
 				.param("userName", "PS")
 				.contentType(MediaType.APPLICATION_JSON_UTF8))
 		.andExpect(MockMvcResultMatchers.status().isOk())
-		.andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(3));
+		.andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(3))
+		.andReturn().getResponse().getContentAsString();
+		System.out.println(rsp);
 	}
 	@Test
 	public void testMultiParamQuery() throws Exception {
 		this.mockMvc.perform(MockMvcRequestBuilders.get("/usr")
 				.param("userName", "ps")
 				.param("password", "jerry")
+				.param("page", "3")
 				.contentType(MediaType.APPLICATION_JSON_UTF8))
 		.andExpect(MockMvcResultMatchers.status().isOk())
 		.andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(3));
-		
+	}
+	
+	@Test
+	public void testGetUserInfo() throws Exception {
+		this.mockMvc.perform(MockMvcRequestBuilders.get("/user/1").contentType(MediaType.APPLICATION_JSON_UTF8))
+		.andExpect(MockMvcResultMatchers.status().isOk())
+		.andExpect(MockMvcResultMatchers.jsonPath("$.userName").value("ps"));
+	}
+	@Test
+	public void testGetUserInfoWhenInvalidParam() throws Exception {
+		this.mockMvc.perform(MockMvcRequestBuilders.get("/user/a").contentType(MediaType.APPLICATION_JSON_UTF8))
+		.andExpect(MockMvcResultMatchers.status().is4xxClientError());
 	}
 }
