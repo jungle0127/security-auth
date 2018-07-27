@@ -1,8 +1,13 @@
 server:
   port: 8080
-  servlet:
-    contextPath: /security
+  context-path: /security
+
+security:
+  basic:
+    enabled: false
 spring:
+  session:
+    store-type: none
   datasource:
     name: primaryDataSource
     username: root
