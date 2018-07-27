@@ -2,6 +2,9 @@ server:
   port: 8080
   context-path: /security
 
+logging:
+  config: classpath:log/logback.cfg.xml
+
 security:
   basic:
     enabled: false
