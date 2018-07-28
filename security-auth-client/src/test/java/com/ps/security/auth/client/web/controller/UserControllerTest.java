@@ -47,9 +47,11 @@ public class UserControllerTest {
 	
 	@Test
 	public void testGetUserInfo() throws Exception {
-		this.mockMvc.perform(MockMvcRequestBuilders.get("/user/1").contentType(MediaType.APPLICATION_JSON_UTF8))
+		String result = this.mockMvc.perform(MockMvcRequestBuilders.get("/user/1").contentType(MediaType.APPLICATION_JSON_UTF8))
 		.andExpect(MockMvcResultMatchers.status().isOk())
-		.andExpect(MockMvcResultMatchers.jsonPath("$.userName").value("ps"));
+		.andExpect(MockMvcResultMatchers.jsonPath("$.userName").value("ps"))
+		.andReturn().getResponse().getContentAsString();
+		System.out.println(result);
 	}
 	@Test
 	public void testGetUserInfoWhenInvalidParam() throws Exception {
