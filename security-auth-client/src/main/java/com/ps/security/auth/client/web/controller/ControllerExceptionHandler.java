@@ -8,10 +8,12 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+//import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.ps.security.auth.client.exception.UserNotExistException;
 
 @ControllerAdvice
+//@RestControllerAdvice
 public class ControllerExceptionHandler {
 	@ExceptionHandler(UserNotExistException.class)
 	@ResponseBody
