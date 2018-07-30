@@ -86,4 +86,10 @@ public class UserControllerTest {
 				.andExpect(MockMvcResultMatchers.status().isOk())
 				.andExpect(MockMvcResultMatchers.jsonPath("$.id").value("1"));
 	}
+	
+	@Test
+	public void testDeleteUserWhenSuccess() throws Exception {
+		this.mockMvc.perform(MockMvcRequestBuilders.delete("/user/1").contentType(MediaType.APPLICATION_JSON_UTF8))
+		.andExpect(MockMvcResultMatchers.status().isOk());
+	}
 }

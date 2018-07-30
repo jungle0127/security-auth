@@ -6,13 +6,16 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.web.BasicErrorController;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,6 +28,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.ps.security.auth.client.dto.User;
 import com.ps.security.auth.client.dto.User.UserDetailView;
 import com.ps.security.auth.client.dto.User.UserSimpleView;
+import com.ps.security.auth.client.exception.UserNotExistException;
 
 @RestController
 public class UserController {
@@ -54,8 +58,11 @@ public class UserController {
 	@GetMapping("/user/{id:\\d+}")
 	@JsonView(UserDetailView.class)
 	public User getUserInfo(@PathVariable String id) {
+		if(StringUtils.equals(id, "666")) {
+			throw new UserNotExistException(id);
+		}
 		User user = new User();
-		user.setUserName("ps");
+		user.setUserName("ps"); 
 		user.setPassword("lotus");
 		user.setBirthday(new Date());
 		return user;
@@ -75,7 +82,11 @@ public class UserController {
 		if(bindingResult.hasErrors()) {
 			bindingResult.getAllErrors().stream().forEach(error -> System.out.println(error.getDefaultMessage()));
 		}
-		
 		return pojo;
+	}
+	@DeleteMapping("/user/{id:\\d+}")
+	public void deleteUser(@PathVariable String id){
+		logger.info("Delete user by id demo code.");
+		return;
 	}
 }
