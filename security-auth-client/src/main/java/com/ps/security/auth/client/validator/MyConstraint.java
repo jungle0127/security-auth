@@ -9,7 +9,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import javax.validation.Constraint;
-import javax.validation.Payload
+import javax.validation.Payload;
 
 /**
  * @author Administrator
@@ -21,5 +21,5 @@ import javax.validation.Payload
 public @interface MyConstraint {
 	String message();
 	Class<?>[] groups() default{};
-	Class<? extends Payload>
+	Class<? extends Payload>[] payload() default{}; 
 }

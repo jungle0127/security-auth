@@ -7,6 +7,7 @@ import javax.validation.constraints.Past;
 import org.hibernate.validator.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.ps.security.auth.client.validator.MyConstraint;
 
 public class User {
 	
@@ -14,10 +15,12 @@ public class User {
 	public interface UserDetailView extends UserSimpleView {};
 	
 	private String id;
+	
 	private String userName;
 	@NotBlank(message="Password can not be null.")
 	private String password;
 	@Past(message="Birthday must be past date.")
+	@MyConstraint(message="This is a demo constraint, ignore it.")
 	private Date birthday;
 	@JsonView(UserSimpleView.class)
 	public String getId() {
