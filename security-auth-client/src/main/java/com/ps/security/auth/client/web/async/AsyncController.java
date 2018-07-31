@@ -41,6 +41,7 @@ public class AsyncController {
 		mockQueue.setPlaceHolder(orderNumber);
 		DeferredResult<String> result = new DeferredResult<>();
 		this.deferResultHolder.getMap().put(orderNumber, result);
+		
 		logger.info("Deferred asynchronized rest end...");
 	}
 }
