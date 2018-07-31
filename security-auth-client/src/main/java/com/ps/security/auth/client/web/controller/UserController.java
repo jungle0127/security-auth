@@ -29,7 +29,12 @@ import com.ps.security.auth.client.dto.User.UserDetailView;
 import com.ps.security.auth.client.dto.User.UserSimpleView;
 import com.ps.security.auth.client.exception.UserNotExistException;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+
 @RestController
+@Api(value="user realted interface")
 public class UserController {
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	
@@ -44,6 +49,7 @@ public class UserController {
 	}
 	@GetMapping("/usr")
 	@JsonView(UserSimpleView.class)
+	@ApiOperation(value="query users")
 	public List<User> queryUser(User userPojo, @PageableDefault(page=1,size=15,sort="username, asc") Pageable pageable){
 		logger.info(ReflectionToStringBuilder.toString(userPojo,ToStringStyle.MULTI_LINE_STYLE));
 		logger.info(String.format("pageName:%d",pageable.getPageNumber()));
@@ -56,7 +62,9 @@ public class UserController {
 	}
 	@GetMapping("/user/{id:\\d+}")
 	@JsonView(UserDetailView.class)
-	public User getUserInfo(@PathVariable String id) {
+	public User getUserInfo(
+			@ApiParam(value="user id")
+			@PathVariable String id) {
 		if(StringUtils.equals(id, "666")) {
 			throw new UserNotExistException(id);
 		}

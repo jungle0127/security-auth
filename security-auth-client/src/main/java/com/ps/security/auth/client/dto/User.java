@@ -9,6 +9,8 @@ import org.hibernate.validator.constraints.NotBlank;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.ps.security.auth.client.validator.MyConstraint;
 
+import io.swagger.annotations.ApiModelProperty;
+
 public class User {
 	
 	public interface UserSimpleView {};
@@ -16,11 +18,15 @@ public class User {
 	
 	private String id;
 	
+	@ApiModelProperty(value="user name")
 	private String userName;
+	
 	@NotBlank(message="Password can not be null.")
 	private String password;
+	
 	@Past(message="Birthday must be past date.")
 	@MyConstraint(message="This is a demo constraint, ignore it.")
+	@ApiModelProperty(value="age of user.")
 	private Date birthday;
 	@JsonView(UserSimpleView.class)
 	public String getId() {
