@@ -35,13 +35,14 @@ public class AsyncController {
 		return result;
 	}
 	@RequestMapping("/order/deferred")
-	public Callable<String>  orderDeferredResult() throws Exception {
+	public DeferredResult<String>  orderDeferredResult() throws Exception {
 		logger.info("Deferred asynchronized rest begin..");
-		String orderNumber = RandomStringUtils.random(8);
+		String orderNumber = RandomStringUtils.randomNumeric(8);
 		mockQueue.setPlaceHolder(orderNumber);
 		DeferredResult<String> result = new DeferredResult<>();
 		this.deferResultHolder.getMap().put(orderNumber, result);
 		
 		logger.info("Deferred asynchronized rest end...");
+		return result;
 	}
 }
