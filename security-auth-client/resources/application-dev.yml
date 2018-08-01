@@ -7,7 +7,7 @@ logging:
 
 security:
   basic:
-    enabled: false
+    enabled: true
 spring:
   session:
     store-type: none

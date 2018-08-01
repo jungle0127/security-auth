@@ -1,4 +1,4 @@
-package com.ps.security.auth.client;
+package com.ps.security.auth;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
