@@ -5,6 +5,11 @@ server:
 logging:
   config: classpath:log/logback.cfg.xml
 
+ps:
+  security:
+    browser:
+      loginpage: /sign-in.html
+
 security:
   basic:
     enabled: true
