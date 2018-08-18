@@ -25,10 +25,13 @@ import com.ps.security.auth.core.properties.SecurityProperties;
 @RestController
 public class BrowserSecurityController {
 	private Logger logger = LoggerFactory.getLogger(getClass());
+	
 	private RequestCache requestCache = new HttpSessionRequestCache();
 	private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
+	
 	@Autowired
 	private SecurityProperties securityProperties;
+	
 	@RequestMapping("/authentication/require")
 	@ResponseStatus(code = HttpStatus.UNAUTHORIZED)
 	public SimpleResponse requireAuthentication(HttpServletRequest request, HttpServletResponse response) throws IOException {
