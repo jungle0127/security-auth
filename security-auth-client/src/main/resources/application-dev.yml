@@ -1,0 +1,32 @@
+server:
+  port: 8080
+  context-path: /security
+
+logging:
+  config: classpath:log/logback.cfg.xml
+
+security:
+  basic:
+    enabled: true
+spring:
+  session:
+    store-type: none
+  datasource:
+    name: primaryDataSource
+    username: root
+    password: lotus
+    url: jdbc:mysql://127.0.0.1:3306/ncee?sessionVariables=foreign_key_checks=0&serverTimezone=CTT&useSSL=false&useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false&maxReconnects=10
+    #close foreign key checking for unit test    
+    driver-class-name: com.mysql.jdbc.Driver
+  redis:
+    database: 1
+    host: 192.168.1.6
+    port: 6379
+    password:
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: -1
+        max-idle: 8
+        min-idle: 0  
+    timeout: 0
