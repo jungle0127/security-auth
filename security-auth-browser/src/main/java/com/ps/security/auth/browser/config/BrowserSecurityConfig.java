@@ -7,36 +7,29 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import com.ps.security.auth.core.properties.SecurityProperties;
+
 @Configuration
 public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
+	
 	@Autowired
 	private SecurityProperties securityProperties;
-	@Autowired
-	private AuthenticationSuccessHandler authenticationSucceedHandler;
-	@Autowired
-	private AuthenticationFailureHandler authenticationFailedHandler;
 	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		//UsernamePasswordAuthenticationFilter is for processing the login URL
 		http.formLogin()
-		//.loginPage("/sign-in.html")
 		.loginPage("/authentication/require")
 		.loginProcessingUrl("/authentication/form")
-		.successHandler(authenticationSucceedHandler)
-		.failureHandler(authenticationFailedHandler)
 		.and()
 		.authorizeRequests()
-		.antMatchers("/authentication/require",
-				securityProperties.getBrowserProperties().getLoginPage()).permitAll()
+		.antMatchers("/sign-in.html","/authentication/require","authentication/form",this.securityProperties.getBrowserProperties().getLoginPage()).permitAll()
+//		.antMatchers("/*").permitAll()
 		.anyRequest()
 		.authenticated()
 		.and()

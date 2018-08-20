@@ -12,7 +12,7 @@ ps:
 
 security:
   basic:
-    enabled: true
+    enabled: false
 spring:
   session:
     store-type: none

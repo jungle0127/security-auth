@@ -23,7 +23,7 @@ public class DemoFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		logger.info("demo filter start");
-		chain.doFilter(request, response);
+		chain.doFilter(request, response);// to process the next filter
 		logger.info("demo filter end.");
 	}
 
