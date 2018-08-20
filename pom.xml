@@ -16,6 +16,12 @@
 		<security.auth.version>0.0.1-SNAPSHOT</security.auth.version>
 	</properties>
 	
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+		</dependency>
+	</dependencies>
 	
 	<dependencyManagement>
 		<dependencies>
