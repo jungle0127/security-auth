@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8081
   context-path: /security
 
 logging:
@@ -9,7 +9,7 @@ ps:
   security:
     browser:
       loginpage: /sign-in.html
-
+      loginType: REDIRECT
 security:
   basic:
     enabled: false
