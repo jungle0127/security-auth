@@ -16,6 +16,7 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationFa
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ps.security.auth.browser.dto.SimpleResponse;
 import com.ps.security.auth.core.properties.LoginType;
 import com.ps.security.auth.core.properties.SecurityProperties;
 
@@ -33,7 +34,7 @@ public class SecurityAuthenticationFailureHandler extends SimpleUrlAuthenticatio
 		logger.warn("Login failed.");
 		if(LoginType.JSON.equals(this.securityProperties.getBrowserProperties().getLoginType())) {
 			response.setContentType("application/json;charset=UTF-8");
-			response.getWriter().write(objectMapper.writeValueAsString(exception));
+			response.getWriter().write(objectMapper.writeValueAsString(new SimpleResponse(exception.getMessage())));
 			response.setStatus(HttpStatus.BAD_REQUEST.value());
 		}else {
 			super.onAuthenticationFailure(request, response, exception);

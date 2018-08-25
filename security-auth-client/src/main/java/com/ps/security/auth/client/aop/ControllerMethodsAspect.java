@@ -9,8 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-@Aspect
-@Component
+//@Aspect
+//@Component
 public class ControllerMethodsAspect {
 	private static final Logger logger = LoggerFactory.getLogger(ControllerMethodsAspect.class);
 	@Pointcut("within(com.ps.security.auth.client..controller.*)")

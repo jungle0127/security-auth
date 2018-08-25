@@ -7,9 +7,11 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.ps.security.auth.browser.authentication.SecurityAuthenticationFailureHandler;
 import com.ps.security.auth.browser.authentication.SecurityAuthenticationSuccessHandler;
+import com.ps.security.auth.core.filter.ValidateCodeFilter;
 import com.ps.security.auth.core.properties.SecurityProperties;
 
 @Configuration
@@ -28,14 +30,18 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.formLogin()
+		ValidateCodeFilter validateCodeFilter = new ValidateCodeFilter();
+		validateCodeFilter.setAuthenticationFailureHandler(securityAuthenticationFailureHandler);
+		
+		http.addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
+		.formLogin()
 		.loginPage("/authentication/require")
 		.loginProcessingUrl("/authentication/form")
 		.successHandler(securityAuthenticationSuccessHandler)
 		.failureHandler(securityAuthenticationFailureHandler)
 		.and()
 		.authorizeRequests()
-		.antMatchers("/sign-in.html","/authentication/require","authentication/form",this.securityProperties.getBrowserProperties().getLoginPage()).permitAll()
+		.antMatchers("/sign-in.html","/code/image","/authentication/require","authentication/form",this.securityProperties.getBrowserProperties().getLoginPage()).permitAll()
 //		.antMatchers("/*").permitAll()
 		.anyRequest()
 		.authenticated()

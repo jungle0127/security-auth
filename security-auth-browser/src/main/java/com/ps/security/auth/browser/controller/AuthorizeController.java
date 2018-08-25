@@ -5,11 +5,16 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.catalina.authenticator.SpnegoAuthenticator.AuthenticateAction;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
@@ -46,5 +51,17 @@ public class AuthorizeController {
 			}			
 		}
 		return new SimpleResponse("The service needs authentication, please redirect to login page.");
+	}
+	@GetMapping("/me")
+	public SimpleResponse getAuthentication() {
+		return new SimpleResponse(SecurityContextHolder.getContext().getAuthentication());
+	}
+	@GetMapping("/me/simple")
+	public SimpleResponse getAuthentication(Authentication authentication) {
+		return new SimpleResponse(authentication);
+	}
+	@GetMapping("/me/principal")
+	public SimpleResponse getAuthetication(@AuthenticationPrincipal UserDetails user) {
+		return new SimpleResponse(user);
 	}
 }

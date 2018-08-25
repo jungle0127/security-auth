@@ -12,7 +12,7 @@ import javax.servlet.ServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-@Component
+//@Component
 public class TimeFilter implements Filter {
 	private static final Logger logger = LoggerFactory.getLogger(TimeFilter.class);
 	

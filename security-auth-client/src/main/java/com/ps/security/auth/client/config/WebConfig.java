@@ -14,7 +14,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import com.ps.security.auth.client.filter.DemoFilter;
 import com.ps.security.auth.client.web.interceptor.TimeInterceptor;
 
-@Configuration
+//@Configuration
 public class WebConfig extends WebMvcConfigurerAdapter {
 	@Autowired
 	private TimeInterceptor timeInterceptor;
