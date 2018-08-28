@@ -1,4 +1,6 @@
 # security-auth
+# 3rd party encryption library:
+http://www.jasypt.org/features.html
 
 #Authentication Interface of Spring Security
 
