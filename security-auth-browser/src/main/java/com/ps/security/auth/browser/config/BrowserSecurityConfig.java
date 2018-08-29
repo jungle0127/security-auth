@@ -11,6 +11,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.ps.security.auth.browser.authentication.SecurityAuthenticationFailureHandler;
 import com.ps.security.auth.browser.authentication.SecurityAuthenticationSuccessHandler;
+import com.ps.security.auth.core.authorization.AuthorizeConfigManager;
 import com.ps.security.auth.core.filter.ValidateCodeFilter;
 import com.ps.security.auth.core.properties.SecurityProperties;
 
@@ -22,30 +23,25 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 	private SecurityAuthenticationFailureHandler securityAuthenticationFailureHandler;
 	@Autowired
 	private SecurityProperties securityProperties;
+	@Autowired
+	private AuthorizeConfigManager authorizeConfigManager;
 	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-	
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		ValidateCodeFilter validateCodeFilter = new ValidateCodeFilter();
 		validateCodeFilter.setAuthenticationFailureHandler(securityAuthenticationFailureHandler);
-		
-		http.addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
-		.formLogin()
-		.loginPage("/authentication/require")
-		.loginProcessingUrl("/authentication/form")
-		.successHandler(securityAuthenticationSuccessHandler)
-		.failureHandler(securityAuthenticationFailureHandler)
-		.and()
-		.authorizeRequests()
-		.antMatchers("/sign-in.html","/code/image","/authentication/require","authentication/form",this.securityProperties.getBrowserProperties().getLoginPage()).permitAll()
-//		.antMatchers("/*").permitAll()
-		.anyRequest()
-		.authenticated()
-		.and()
-		.csrf().disable();
+
+		http.addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class).formLogin()
+				.loginPage("/authentication/require").loginProcessingUrl("/authentication/form")
+				.successHandler(securityAuthenticationSuccessHandler)
+				.failureHandler(securityAuthenticationFailureHandler)
+				// .antMatchers("/*").permitAll()
+				.and().csrf().disable();
+		this.authorizeConfigManager.config(http.authorizeRequests());
 	}
 }

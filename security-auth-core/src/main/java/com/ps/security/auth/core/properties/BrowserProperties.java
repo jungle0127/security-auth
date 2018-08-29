@@ -3,7 +3,7 @@ package com.ps.security.auth.core.properties;
 public class BrowserProperties {
 	private String loginPage = "/sign-in.html";
 	
-	private LoginType loginType = LoginType.JSON;
+	private LoginType loginType = LoginType.REDIRECT;
 	
 	public LoginType getLoginType() {
 		return loginType;

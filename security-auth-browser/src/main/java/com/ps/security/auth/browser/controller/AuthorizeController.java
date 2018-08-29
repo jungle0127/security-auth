@@ -47,7 +47,7 @@ public class AuthorizeController {
 		if(savedRequest != null) {
 			String targetUrl = savedRequest.getRedirectUrl();
 			if(StringUtils.endsWithIgnoreCase(targetUrl, ".html")) {
-				this.redirectStrategy.sendRedirect(request, response, this.securityProperties.getBrowserProperties().getLoginPage());
+				this.redirectStrategy.sendRedirect(request, response, this.securityProperties.getBrowser().getLoginPage());
 			}			
 		}
 		return new SimpleResponse("The service needs authentication, please redirect to login page.");

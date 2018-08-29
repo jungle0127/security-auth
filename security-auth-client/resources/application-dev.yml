@@ -5,10 +5,16 @@ server:
 logging:
   config: classpath:log/logback.cfg.xml
 
-ps:
+common: 
   security:
+    validateCode:
+      imageCode: 
+        width: 67
+        height: 23
+        codeLength: 4
+        expireSecondsIn: 60
     browser:
-      loginpage: /sign-in.html
+      loginPage: /sign-in.html
       loginType: REDIRECT
 security:
   basic:

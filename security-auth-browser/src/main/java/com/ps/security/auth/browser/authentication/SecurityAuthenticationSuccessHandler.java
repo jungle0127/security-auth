@@ -32,9 +32,10 @@ public class SecurityAuthenticationSuccessHandler extends SavedRequestAwareAuthe
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
 		logger.info("Login succeed");
-		if(LoginType.JSON.equals(this.securityProperties.getBrowserProperties().getLoginType())) {
+		LoginType configLoginType = this.securityProperties.getBrowser().getLoginType(); 
+		if(LoginType.JSON.equals(configLoginType)) {
 			response.setContentType("application/json;charset=UTF-8");
-			response.getWriter().write(this.objectMapper.writeValueAsString(authentication));
+			response.getWriter().write(this.objectMapper.writeValueAsString(authentication));			
 		} else {
 			super.onAuthenticationSuccess(request, response, authentication);
 		}

@@ -12,6 +12,6 @@ public class HelloController {
 	private SecurityProperties secruityProperites;
 	@GetMapping("/hello")
 	public String hello() {
-		return this.secruityProperites.getBrowserProperties().getLoginPage();
+		return this.secruityProperites.getBrowser().getLoginPage();
 	}
 }

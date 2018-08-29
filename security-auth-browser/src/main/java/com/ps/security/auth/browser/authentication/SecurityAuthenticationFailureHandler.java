@@ -32,7 +32,7 @@ public class SecurityAuthenticationFailureHandler extends SimpleUrlAuthenticatio
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException exception) throws IOException, ServletException {
 		logger.warn("Login failed.");
-		if(LoginType.JSON.equals(this.securityProperties.getBrowserProperties().getLoginType())) {
+		if(LoginType.JSON.equals(this.securityProperties.getBrowser().getLoginType())) {
 			response.setContentType("application/json;charset=UTF-8");
 			response.getWriter().write(objectMapper.writeValueAsString(new SimpleResponse(exception.getMessage())));
 			response.setStatus(HttpStatus.BAD_REQUEST.value());
