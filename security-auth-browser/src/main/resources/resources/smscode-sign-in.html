@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SMS Sign In</title>
+</head>
+<body>
+<h3>Sign In</h3>
+<form action="/security/authentication/mobile" method="post">
+    <table>
+        <tr>
+            <td>Phone Number</td>
+            <td><input type="text" name="phoneNumber" value="13800000000"></td>
+        </tr>
+        <tr>
+            <td>Image Code</td>
+            <td>
+                <input type="text" name="smsCode">
+                <a href="/authentication/sms?phoneNumber=13800000000">Send SMS Validation Code</a>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button type="submit">Submit</button>
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

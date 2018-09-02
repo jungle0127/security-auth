@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.social.connect.web.HttpSessionSessionStrategy;
 import org.springframework.social.connect.web.SessionStrategy;
@@ -17,7 +16,7 @@ import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.ps.security.auth.core.controller.ImageCodeController;
+import com.ps.security.auth.core.controller.ValidateCodeController;
 import com.ps.security.auth.core.exception.ValidateCodeException;
 import com.ps.security.auth.core.validate.code.ImageCode;
 
@@ -48,7 +47,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter {
 	}
 
 	private void validateImageCode(ServletWebRequest request) throws ServletRequestBindingException {
-		ImageCode imageCodeInSession = (ImageCode) this.sessionStrategy.getAttribute(request, ImageCodeController.SESSION_KEY);
+		ImageCode imageCodeInSession = (ImageCode) this.sessionStrategy.getAttribute(request, ValidateCodeController.SESSION_KEY);
 		String imageCodeInRequest = ServletRequestUtils.getStringParameter(request.getRequest(), "imageCode");
 		if(StringUtils.isBlank(imageCodeInRequest)) {
 			throw new ValidateCodeException("Image code can not be null.");
@@ -57,13 +56,13 @@ public class ValidateCodeFilter extends OncePerRequestFilter {
 			throw new ValidateCodeException("Image code does not exist.");
 		}
 		if(imageCodeInSession.isExpired()) {
-			this.sessionStrategy.removeAttribute(request, ImageCodeController.SESSION_KEY);
+			this.sessionStrategy.removeAttribute(request, ValidateCodeController.SESSION_KEY);
 			throw new ValidateCodeException("Image code is expired.");
 		}
 		if(!StringUtils.equals(imageCodeInRequest, imageCodeInSession.getCode())) {
 			throw new ValidateCodeException("Image code does not match");
 		}
-		this.sessionStrategy.removeAttribute(request, ImageCodeController.SESSION_KEY);
+		this.sessionStrategy.removeAttribute(request, ValidateCodeController.SESSION_KEY);
 	}
 
 
