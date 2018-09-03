@@ -69,6 +69,6 @@
 		<module>security-auth-app</module>
 		<module>security-auth-browser</module>
 		<module>security-auth-client</module>
-    <module>security-auth-authorize</module>
+    	<module>security-auth-authorize</module>
   </modules>
 </project>
