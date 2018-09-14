@@ -7,12 +7,13 @@ import java.awt.image.BufferedImage;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.ServletRequestUtils;
 import com.ps.security.auth.core.properties.SecurityProperties;
 import com.ps.security.auth.core.validate.code.ImageCode;
 import org.springframework.web.context.request.ServletWebRequest;
 
-//@Component
+@Component
 public class ImageCodeGenerator implements IValidateCodeGenerator {
 	@Autowired
 	private SecurityProperties securityProperties; 

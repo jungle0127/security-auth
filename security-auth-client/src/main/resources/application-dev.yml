@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8088
   context-path: /security
 
 logging:
@@ -15,7 +15,7 @@ spring:
     name: primaryDataSource
     username: root
     password: lotus
-    url: jdbc:mysql://127.0.0.1:3306/ncee?sessionVariables=foreign_key_checks=0&serverTimezone=CTT&useSSL=false&useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false&maxReconnects=10
+    url: jdbc:mysql://127.0.0.1:3306/security_auth?sessionVariables=foreign_key_checks=0&serverTimezone=CTT&useSSL=false&useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false&maxReconnects=10
     #close foreign key checking for unit test    
     driver-class-name: com.mysql.jdbc.Driver
   redis:

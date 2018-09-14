@@ -14,7 +14,9 @@ public class ValidateCode {
         this.code = code;
         this.expireTime = LocalDateTime.now().plusSeconds(expireSeconds);
     }
-
+    public boolean isExpired(){
+        return LocalDateTime.now().isAfter(this.expireTime);
+    }
     public String getCode() {
         return code;
     }
